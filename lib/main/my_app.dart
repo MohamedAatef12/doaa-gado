@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/env/app_config.dart';
 import '../config/router/app_router.dart';
-import '../core/themes/dark_theme.dart';
-import '../core/network/widgets/connectivity_wrapper.dart';
-
-// final router = appRouter();
 
 class MyApp extends StatelessWidget {
   final AppConfig appConfig;
@@ -39,10 +35,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: isDev ? false : false,
 
           builder: (context, child) {
-            return ConnectivityWrapper(child: child!);
+            return child!;
           },
         
-          // routerConfig: router,
+          routerConfig: router,
         );
       },
     );

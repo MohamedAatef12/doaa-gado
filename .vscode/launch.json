@@ -8,33 +8,33 @@
             "name": "doaa_gado (dev debug mode)",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main/main_dev.dart",
+            "program": "lib/main/main_development.dart",
             "flutterMode": "debug",
             "args": [
                 "--flavor",
-                "dev"
+                "development"
             ]
         },
         {
             "name": "doaa_gado (dev release mode)",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main/main_dev.dart",
+            "program": "lib/main/main_development.dart",
             "flutterMode": "release",
             "args": [
                 "--flavor",
-                "dev"
+                "development"
             ]
         },
         {
             "name": "doaa_gado (prod debug mode)",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main/main_prod.dart",
+            "program": "lib/main/main_production.dart",
             "flutterMode": "debug",
             "args": [
                 "--flavor",
-                "prod"
+                "production"
             ]
         },
     
@@ -42,11 +42,11 @@
             "name": "doaa_gado (prod release mode)",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main/main_prod.dart",
+            "program": "lib/main/main_production.dart",
             "flutterMode": "release",
             "args": [
                 "--flavor",
-                "prod"
+                "production"
             ]
         }
     ]

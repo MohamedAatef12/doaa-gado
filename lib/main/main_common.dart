@@ -15,22 +15,15 @@ import 'my_app.dart';
 Future<void> mainCommon(AppConfig config) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // configureDependencies();
+  getIt.registerSingleton<AppConfig>(config);
+  configureDependencies();
   final talker = TalkerFlutter.init();
+  getIt.registerSingleton<Talker>(talker);
   Bloc.observer = TalkerBlocObserver(talker: talker);
-
-  final networkRepo = NetworkRepository();
-
   runApp(
-    RepositoryProvider.value(
-      value: networkRepo,
-      child: BlocProvider(
-        create: (context) => NetworkBloc(networkRepo)..add(NetworkObserve()),
-        child: DebugOverlay(
-          enabled: true, // Only show in debug mode
-          child: MyApp(appConfig: config),
-        ),
-      ),
+    DebugOverlay(
+      enabled: true, // Only show in debug mode
+      child: MyApp(appConfig: config),
     ),
   );
 }

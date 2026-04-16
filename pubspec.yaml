@@ -90,12 +90,12 @@ flavorizr:
     android:
       flavorDimensions: "app"
   flavors:
-    dev:
+    development:
       app:
         name: "Doaa Gado Dev"
       android:
         applicationId: "com.example.doaa_gado.dev"
-    prod:
+    production:
       app:
         name: "Doaa Gado"
       android:

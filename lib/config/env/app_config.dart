@@ -1,3 +1,5 @@
+import 'package:doaa_gado/core/constants/api_endpoints.dart';
+
 class AppConfig {
   final String envName;
   final String apiBaseUrl;
@@ -6,11 +8,11 @@ class AppConfig {
 
   static const dev = AppConfig(
     envName: 'Development',
-    apiBaseUrl: 'https://dev.api.example.com/',
+    apiBaseUrl: ApiEndpoints.baseUrl,
   );
 
   static const prod = AppConfig(
     envName: 'Production',
-    apiBaseUrl: 'https://api.example.com/',
+    apiBaseUrl: ApiEndpoints.baseUrl,
   );
 }

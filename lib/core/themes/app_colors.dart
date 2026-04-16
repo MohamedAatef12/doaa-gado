@@ -35,6 +35,12 @@ class AppColors {
     required this.splashTopArc,
     required this.splashBottomArc,
     required this.splashBackground,
+    // Islamic Theme colors
+    required this.brownPrimary,
+    required this.brownLight,
+    required this.brownDark,
+    required this.goldAccent,
+    required this.creamBackground,
     // Private Ride feature colors
     required this.privateAccent,
     required this.privateAccentGlow,
@@ -72,6 +78,13 @@ class AppColors {
   Color splashTopArc;
   Color splashBottomArc;
   Color splashBackground;
+
+  // Islamic Theme colors
+  Color brownPrimary;
+  Color brownLight;
+  Color brownDark;
+  Color goldAccent;
+  Color creamBackground;
 
   // Private Ride feature colors
   Color privateAccent;        // #04AB97 — teal CTA, active tab border
@@ -123,6 +136,12 @@ var _defaultLightColors = AppColors(
   splashTopArc: const Color(0xFF151515),
   splashBottomArc: const Color.fromARGB(255, 22, 22, 22),
   splashBackground: const Color(0xFF000000),
+  // Islamic Theme
+  brownPrimary: const Color(0xff5D4037),
+  brownLight: const Color(0xff8D6E63),
+  brownDark: const Color(0xff3E2723),
+  goldAccent: const Color(0xffD4AF37),
+  creamBackground: const Color(0xffF5F5DC),
   // Private Ride
   privateAccent: const Color(0xFF04AB97),
   privateAccentGlow: const Color(0x4004AB97),
