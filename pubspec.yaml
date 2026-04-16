@@ -92,14 +92,14 @@ flavorizr:
   flavors:
     dev:
       app:
-        name: "MyApp Dev"
+        name: "Doaa Gado Dev"
       android:
-        applicationId: "com.example.myapp.dev"
+        applicationId: "com.example.doaa_gado.dev"
     prod:
       app:
-        name: "MyApp"
+        name: "Doaa Gado"
       android:
-        applicationId: "com.example.myapp"
+        applicationId: "com.example.doaa_gado"
 
 flutter:
   uses-material-design: true
