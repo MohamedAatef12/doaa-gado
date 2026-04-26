@@ -99,10 +99,20 @@ class BaseResponseModel<T> {
     Map<String, dynamic> json,
     T Function(Object? json) fromJsonT,
   ) {
+    // If the response is wrapped with statusCode and data
+    if (json.containsKey('statusCode')) {
+      return BaseResponseModel(
+        statusCode: json['statusCode'] ?? 0,
+        message: json['message'] ?? '',
+        data: json['data'] != null ? fromJsonT(json['data']) : null,
+      );
+    }
+    
+    // If the response is unwrapped (data is at the root)
     return BaseResponseModel(
-      statusCode: json['statusCode'] ?? 0,
-      message: json['message'] ?? '',
-      data: json['data'] != null ? fromJsonT(json['data']) : null,
+      statusCode: 200, // Assume 200 if we got a map and no error wrapper
+      message: 'Success',
+      data: fromJsonT(json),
     );
   }
 }

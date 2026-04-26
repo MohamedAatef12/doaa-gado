@@ -25,6 +25,10 @@ import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
 import '../../features/auth/domain/usecases/login_user.dart' as _i778;
 import '../../features/auth/domain/usecases/sign_up.dart' as _i190;
 import '../../features/auth/presentation/blocs/auth_bloc.dart' as _i85;
+import '../../features/home/data/repositories/home_repository_impl.dart'
+    as _i76;
+import '../../features/home/domain/repositories/home_repository.dart' as _i0;
+import '../../features/home/presentation/blocs/home_bloc.dart' as _i1061;
 import '../env/app_config.dart' as _i92;
 import 'di_module.dart' as _i211;
 
@@ -40,6 +44,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i640.SecureStorageHelper(),
     );
     gh.lazySingleton<_i293.SharedPrefsHelper>(() => _i293.SharedPrefsHelper());
+    gh.lazySingleton<_i0.HomeRepository>(() => _i76.HomeRepositoryImpl());
     gh.lazySingleton<_i676.CacheManager>(
       () => _i676.CacheManager(
         sharedPrefs: gh<_i293.SharedPrefsHelper>(),
@@ -48,6 +53,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i361.Dio>(
       () => dIModule.dio(gh<_i92.AppConfig>(), gh<_i993.Talker>()),
+    );
+    gh.factory<_i1061.HomeBloc>(
+      () => _i1061.HomeBloc(gh<_i0.HomeRepository>()),
     );
     gh.lazySingleton<_i655.ApiService>(() => _i655.ApiService(gh<_i361.Dio>()));
     gh.lazySingleton<_i1047.AuthRemoteDataSource>(

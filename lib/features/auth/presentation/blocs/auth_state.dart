@@ -9,6 +9,7 @@ class AuthState extends Equatable {
   final DateTime? birthdate;
   final AuthStatus status;
   final String? message;
+  final String randomAyah;
 
   const AuthState({
     this.mobile = '',
@@ -17,6 +18,7 @@ class AuthState extends Equatable {
     this.birthdate,
     this.status = AuthStatus.initial,
     this.message,
+    this.randomAyah = '',
   });
 
   AuthState copyWith({
@@ -26,6 +28,7 @@ class AuthState extends Equatable {
     DateTime? birthdate,
     AuthStatus? status,
     String? message,
+    String? randomAyah,
   }) {
     return AuthState(
       mobile: mobile ?? this.mobile,
@@ -34,9 +37,10 @@ class AuthState extends Equatable {
       birthdate: birthdate ?? this.birthdate,
       status: status ?? this.status,
       message: message ?? this.message,
+      randomAyah: randomAyah ?? this.randomAyah,
     );
   }
 
   @override
-  List<Object?> get props => [mobile, code, fullName, birthdate, status, message];
+  List<Object?> get props => [mobile, code, fullName, birthdate, status, message, randomAyah];
 }

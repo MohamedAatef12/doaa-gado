@@ -108,3 +108,9 @@ flutter:
     - assets/icons/
     - assets/fonts/
     - assets/translations/
+  fonts:
+    - family: Aref Ruqaa
+      fonts:
+        - asset: assets/fonts/Aref_Ruqaa/ArefRuqaa-Regular.ttf
+        - asset: assets/fonts/Aref_Ruqaa/ArefRuqaa-Bold.ttf
+          weight: 700

@@ -1,6 +1,9 @@
+import 'dart:math';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import '../../../../core/utils/validators.dart';
 import '../../domain/usecases/login_user.dart';
 import '../../domain/usecases/sign_up.dart';
 import 'auth_event.dart';
@@ -23,8 +26,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   })  : _loginUseCase = loginUseCase,
         _registerUseCase = registerUseCase,
         super(const AuthState()) {
-    // These events are now secondary as we use controllers, 
-    // but kept for backward compatibility if needed.
+    // Pick an initial random Ayah
+    on<GetRandomAyahEvent>(_onGetRandomAyah);
+    add(GetRandomAyahEvent());
+
     on<MobileChangedEvent>((event, emit) => emit(state.copyWith(mobile: event.mobile)));
     on<CodeChangedEvent>((event, emit) => emit(state.copyWith(code: event.code)));
     on<FullNameChangedEvent>((event, emit) => emit(state.copyWith(fullName: event.fullName)));
@@ -32,6 +37,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     
     on<LoginSubmittedEvent>(_onLoginSubmitted);
     on<RegisterSubmittedEvent>(_onRegisterSubmitted);
+  }
+
+  void _onGetRandomAyah(GetRandomAyahEvent event, Emitter<AuthState> emit) {
+    final random = Random();
+    final index = random.nextInt(26) + 1;
+    emit(state.copyWith(randomAyah: 'ayah_$index'.tr()));
   }
 
   @override
@@ -57,9 +68,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final mobile = mobileController.text;
     final code = codeController.text;
 
-    if (mobile.isEmpty || code.isEmpty) return;
+    final phoneError = Validators.validatePhone(mobile);
+    if (phoneError != null) {
+      emit(state.copyWith(status: AuthStatus.error, message: phoneError));
+      return;
+    }
 
-    emit(state.copyWith(status: AuthStatus.loading));
+    if (code.isEmpty) {
+      emit(state.copyWith(status: AuthStatus.error, message: 'Please enter your login code'));
+      return;
+    }
+
+    emit(state.copyWith(status: AuthStatus.loading, message: ''));
     final result = await _loginUseCase(
       mobile: mobile,
       code: int.tryParse(code) ?? 0,
@@ -80,12 +100,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     final fullName = fullNameController.text;
     final mobile = mobileController.text;
-    // state.birthdate is still needed for DateTime logic, unless we parse it.
-    // Better to keep birthdate in state and only use controllers for strings.
     
-    if (fullName.isEmpty || mobile.isEmpty || state.birthdate == null) return;
+    final nameError = Validators.validateName(fullName);
+    if (nameError != null) {
+      emit(state.copyWith(status: AuthStatus.error, message: nameError));
+      return;
+    }
 
-    emit(state.copyWith(status: AuthStatus.loading));
+    final phoneError = Validators.validatePhone(mobile);
+    if (phoneError != null) {
+      emit(state.copyWith(status: AuthStatus.error, message: phoneError));
+      return;
+    }
+
+    if (state.birthdate == null) {
+      emit(state.copyWith(status: AuthStatus.error, message: 'Please select your birthdate'));
+      return;
+    }
+
+    emit(state.copyWith(status: AuthStatus.loading, message: ''));
     final result = await _registerUseCase(
       fullName: fullName,
       mobile: mobile,

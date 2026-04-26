@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
@@ -14,6 +15,7 @@ import 'my_app.dart';
 
 Future<void> mainCommon(AppConfig config) async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
 
   getIt.registerSingleton<AppConfig>(config);
   configureDependencies();
@@ -21,8 +23,10 @@ Future<void> mainCommon(AppConfig config) async {
   getIt.registerSingleton<Talker>(talker);
   Bloc.observer = TalkerBlocObserver(talker: talker);
   runApp(
-    DebugOverlay(
-      enabled: true, // Only show in debug mode
+    EasyLocalization(
+      supportedLocales: const [Locale('ar')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('ar'),
       child: MyApp(appConfig: config),
     ),
   );

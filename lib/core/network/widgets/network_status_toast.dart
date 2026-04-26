@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../network_status.dart';
@@ -13,10 +14,10 @@ class NetworkStatusToast extends StatelessWidget {
     if (status == NetworkStatus.online) return const SizedBox.shrink();
 
     final isOffline = status == NetworkStatus.offline;
-    final title = isOffline ? 'No Connection' : 'Unstable Connection';
+    final title = isOffline ? 'no_connection'.tr() : 'unstable_connection'.tr();
     final message = isOffline
-        ? 'You are currently offline.'
-        : 'Connection is slow.';
+        ? 'offline_message'.tr()
+        : 'slow_connection'.tr();
     final icon = isOffline
         ? Icons.wifi_off_rounded
         : Icons.wifi_tethering_error_rounded;

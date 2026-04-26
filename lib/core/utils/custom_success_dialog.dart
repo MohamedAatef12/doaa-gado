@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../constants/padding.dart';
@@ -12,7 +13,7 @@ import 'dart:ui';
 class CustomSuccessDialog extends StatelessWidget {
   final String title;
   final String description;
-  final String buttonText;
+  final String? buttonText;
   final VoidCallback onPressed;
   final String? iconPath;
 
@@ -20,13 +21,14 @@ class CustomSuccessDialog extends StatelessWidget {
     super.key,
     required this.title,
     required this.description,
-    this.buttonText = 'Done',
+    this.buttonText,
     required this.onPressed,
     this.iconPath,
   });
 
   @override
   Widget build(BuildContext context) {
+    final effectiveButtonText = buttonText ?? 'done'.tr();
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
       child: Dialog(
@@ -63,7 +65,7 @@ class CustomSuccessDialog extends StatelessWidget {
               SizedBoxConstants.verticalLarge,
               CustomFilledButton(
                 onPressed: onPressed,
-                text: buttonText,
+                text: effectiveButtonText,
                 heightFactor: 0.06,
               ),
             ],

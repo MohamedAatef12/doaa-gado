@@ -6,9 +6,9 @@ import 'app_colors.dart';
 
 ThemeData lightTheme =
     FlexThemeData.light(
-      fontFamily: GoogleFonts.inter().fontFamily,
+      fontFamily: GoogleFonts.cairo().fontFamily,
       useMaterial3: true,
-      scaffoldBackground: AppColors.current.white,
+      scaffoldBackground: Colors.transparent,
       appBarElevation: 0.5,
     ).copyWith(
       textSelectionTheme: TextSelectionThemeData(

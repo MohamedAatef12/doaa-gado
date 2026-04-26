@@ -1,3 +1,5 @@
+import 'package:doaa_gado/core/themes/app_theme.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/env/app_config.dart';
@@ -10,35 +12,38 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDev = appConfig.envName == 'Development';
-
     return ScreenUtilInit(
       designSize: const Size(360, 760),
       builder: (context, child) {
         return MaterialApp.router(
-          locale: const Locale('ar'),
-
-          localeResolutionCallback: (locale, supportedLocales) {
-            return const Locale('ar');
-          },
-          localeListResolutionCallback: (locales, supportedLocales) {
-            for (var locale in locales!) {
-              for (var supportedLocale in supportedLocales) {
-                if (locale.languageCode == supportedLocale.languageCode) {
-                  return supportedLocale;
-                }
-              }
-            }
-            return supportedLocales.first;
-          },
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
           title: appConfig.envName,
-          debugShowCheckedModeBanner: isDev ? false : false,
-
-          builder: (context, child) {
-            return child!;
-          },
-        
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.getTheme(false),
+          darkTheme: AppTheme.getTheme(true),
+          themeMode: ThemeMode.light, // Set default or use a preference
           routerConfig: router,
+          builder: (context, child) {
+            return Stack(
+              children: [
+                Positioned.fill(
+                  child: Image.asset(
+                    'assets/images/islamic_bg.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                // Global light overlay for better text contrast
+                Positioned.fill(
+                  child: Container(
+                    color: Colors.white.withValues(alpha: 0.1),
+                  ),
+                ),
+                if (child != null) child,
+              ],
+            );
+          },
         );
       },
     );

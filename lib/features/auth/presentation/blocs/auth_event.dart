@@ -40,3 +40,5 @@ class BirthdateChangedEvent extends AuthEvent {
 class LoginSubmittedEvent extends AuthEvent {}
 
 class RegisterSubmittedEvent extends AuthEvent {}
+
+class GetRandomAyahEvent extends AuthEvent {}
